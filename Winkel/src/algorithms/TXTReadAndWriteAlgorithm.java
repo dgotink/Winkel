@@ -42,7 +42,7 @@ public class TXTReadAndWriteAlgorithm implements IReaderAndWriter
 	}
 	
 	@Override
-	public Shop readItem(File file, Shop shop){
+	public Shop readItem(File file, Shop shop){ // TO DO if borrowed: customer
 		try {
 			scanner = new Scanner(file);
 			Scanner lijn = null;

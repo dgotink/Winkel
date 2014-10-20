@@ -12,6 +12,7 @@ public class Shop
 {
 	private Map<String, Item> items;
 	private Map<String, Customer> customers;
+	//TO DO : map van string id, customer om bij te houden bij elk item wie er momenteel van in bezit is
 	private Validator validator = new Validator();
 	private IDiscount discountstrategy;
 	

@@ -31,6 +31,7 @@ public class Customer {
 	
 	public void setRegistered(boolean value){
 		this.registered = value;
+		if(value == false) messages.clear();
 	}
 	
 	public String getName(){
