@@ -3,6 +3,9 @@ package algorithms;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
@@ -66,7 +69,13 @@ public class TXTReadAndWriteAlgorithm implements IReaderAndWriter
 				newItem.setPrice(price);
 				
 				if(state.equals("borrowed"))
-					newItem.borrow();
+				{
+					String customerID = lijn.next();
+					String stringDate = lijn.next();
+					DateFormat formatter = new SimpleDateFormat("d-MMM-yyy,HH:mm:ss aaa");
+					Date date = formatter.parse(stringDate);
+					shop.borrowItem(id, customerID, date);
+				}
 				if(state.equals("damaged"))
 					newItem.setState(new Damaged(newItem));
 				//else item is available

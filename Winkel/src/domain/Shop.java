@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -12,7 +13,7 @@ public class Shop
 {
 	private Map<String, Item> items;
 	private Map<String, Customer> customers;
-	//TO DO : map van string id, customer om bij te houden bij elk item wie er momenteel van in bezit is
+	private Map<String, BorrowedEntry> borrowedEntries;
 	private Validator validator = new Validator();
 	private IDiscount discountstrategy;
 	
@@ -20,6 +21,7 @@ public class Shop
 	{
 		this.items = new HashMap<String, Item>();
 		this.customers = new HashMap<String, Customer>();
+		this.borrowedEntries = new HashMap<String, BorrowedEntry>();
 		discountstrategy = new NoDiscount();
 	}
 	
@@ -100,16 +102,23 @@ public class Shop
 		}
 	}
 	
-	public void borrowItem(String itemID, String customerID)
+	private void borrowItem(String itemID, Customer customer, Date date)
 	{
 		this.getItem(itemID).borrow();
-		
+		BorrowedEntry temp = new BorrowedEntry(customer, date);
+		borrowedEntries.put(itemID, temp);
 	}
 	
-	public void borrowItem(String itemID, String customerName, String customerEmail)
+	public void borrowItem(String itemID, String customerID, Date date)
 	{
-		this.getItem(itemID).borrow();
-		addCustomer(customerName, customerEmail);
+		Customer temp = customers.get(customerID);
+		borrowItem(itemID, temp, date);
+	}
+	
+	public void borrowItem(String itemID, String customerName, String customerEmail, Date date)
+	{
+		Customer temp = new Customer(customerName, customerEmail);
+		borrowItem(itemID, temp, date);
 	}
 	
 	public void declareItemDamaged(String id)
